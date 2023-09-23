@@ -8,7 +8,7 @@
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 2.5rem;
     place-items: center;
-    vertical-align: middle;
+    align-items: first baseline;
     padding: 0;
 }
 .pelicula h3{
