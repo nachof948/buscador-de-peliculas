@@ -9,7 +9,7 @@ const ListaDePeliculas = ({ movies }) =>{
           <li  className='pelicula' key={pelicula.id}>
             <h3>{pelicula.title}</h3>
             <p className='año'>{pelicula.year}</p>
-            <p className={pelicula.type === 'movie' ? 'movie' : 'serie'}>{pelicula.type}</p>
+            <p className={pelicula.type === 'movie' ? 'movie' : pelicula.type === 'serie' ? 'serie' : 'game'}>{pelicula.type}</p>
             <img src={pelicula.poster} alt={pelicula.title} />
           </li>
         ))

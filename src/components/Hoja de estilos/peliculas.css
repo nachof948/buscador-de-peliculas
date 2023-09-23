@@ -58,6 +58,18 @@
     border-radius: 15px;
     margin-bottom: 1.9rem;
 }
+.game{
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-color: crimson ;
+    width: 6rem;
+    margin: 1rem auto;
+    padding: 0.5rem ;
+    border-radius: 15px;
+    margin-bottom: 1.9rem;
+}
 .pelicula img:hover{
     border: 2px solid white;
     transform: scale(1.05);
