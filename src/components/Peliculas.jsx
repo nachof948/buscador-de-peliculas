@@ -1,4 +1,5 @@
 import './Hoja de estilos/peliculas.css'
+import imgDefault from './Imagenes/img-default.png'
 const ListaDePeliculas = ({ movies }) =>{
   return(
 
@@ -10,7 +11,7 @@ const ListaDePeliculas = ({ movies }) =>{
             <h3>{pelicula.title}</h3>
             <p className='año'>{pelicula.year}</p>
             <p className={pelicula.type === 'movie' ? 'movie' : pelicula.type === 'game' ? 'game' : 'serie'}>{pelicula.type}</p>
-            <img src={pelicula.poster} alt={pelicula.title} />
+            <img src={pelicula.poster === "N/A"? imgDefault : pelicula.poster} alt={pelicula.title} />
           </li>
         ))
       }
