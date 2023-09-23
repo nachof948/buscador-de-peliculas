@@ -7,7 +7,7 @@
 main{
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 85vw;
 }
 form{
     display: flex;
