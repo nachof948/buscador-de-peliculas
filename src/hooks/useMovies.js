@@ -1,4 +1,3 @@
-import withResults from '../mocks/with-results.json'
 import withoutResults from '../mocks/no-results.json'
 import { useState } from 'react'
 
