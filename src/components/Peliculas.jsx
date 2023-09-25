@@ -1,14 +1,13 @@
 import './Hoja de estilos/peliculas.css'
 import imgDefault from './Imagenes/img-default.png'
+
 const ListaDePeliculas = ({ movies }) =>{
   return(
-
-
     <ul className='peliculas'>
       {
         movies.map(pelicula =>(
           <li  className='pelicula' key={pelicula.id}>
-            <h3>{pelicula.title}</h3>
+            <h3>{pelicula.title }</h3>
             <p className='año'>{pelicula.year}</p>
             <p className={pelicula.type === 'movie' ? 'movie' : pelicula.type === 'game' ? 'game' : 'serie'}>{pelicula.type}</p>
             <img src={pelicula.poster === "N/A"? imgDefault : pelicula.poster} alt={pelicula.title} />

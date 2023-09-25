@@ -1,40 +1,56 @@
-import withoutResults from '../mocks/no-results.json'
-import { useState } from 'react'
-
+import { useState, useRef, useMemo, useCallback} from 'react'
+import { searchMovies } from '../services/movies'
 /* Custom Hook useMovies()*/
 //Se encarga de realizar todo el proceso de la busqueda de peliculas
 
-export function useMovies({ search }) {
-  const [responseMovies, setResponseMovies] = useState([])
+export function useMovies({ search, titulo }) {
+  const [movies, setMovies] = useState([])
+  const [loading, setLoading] = useState(false)
   
-  const movies = responseMovies.Search
-    
-  const mapMovies = movies?.map(movie => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    year: movie.Year,
-    type: movie.Type,
-    poster: movie.Poster
-  }))
-  const buscarPeliculas = async(search) =>{
-    const response = await fetch(`https://www.omdbapi.com/?apikey=f8f94e06&s=${search}`)
-    const data = await response.json()
-    return data
-  }
-  const getMovies = async () =>{
-    if (search){
-      try{
-        const data = await buscarPeliculas(search)
-        setResponseMovies(data)
-      } 
-      catch (error){
-          console.log('Error', error)
-      }
-    } else{
-      setResponseMovies(withoutResults)
+  /* Utilizamos useRef() para guardar la busqueda anterior */
+  const previousSearch = useRef(search)
+  
+  /* useMemo() lo que hace memorizar un valor para no tener que volverlo a calcular dependiendo de unas dependencias   */
+
+  /* La razón principal para usar useCallback() es evitar que las funciones se creen nuevamente en cada renderizado, lo que puede ser especialmente importante en situaciones donde se pasan funciones como props a componentes hijos. */
+  
+  /* useCallBack() */
+  const getMovies = useCallback(async ({ search }) =>{
+    if (search === previousSearch.current) return
+    try{
+      setLoading(true)
+      const newMovies = await searchMovies({search})
+      setMovies(newMovies)
+    } catch(err){
+      throw new Error('Error en la busqueda')
+    } finally{
+      setLoading(false)
     }
-  }
+  }, [])
 
+  /* useMemo() */
+/*   const getMovies = useMemo(() =>{
+    return async ({ search }) =>{
+    if(search === previousSearch.current) return
+    try{
+      setLoading(true) */
+      /* Esto actualiza el valor del objeto useRef con la nueva búsqueda actual. */
+/*       previousSearch.current = search
+      const newMovies = await searchMovies({search})
+      setMovies(newMovies)
+    }catch(error){
+      throw new Error('Error en la busqueda')
+    }finally{ */
+      //Esto se ejecuta tanto en Try como en el Catch
+/*       setLoading(false)
+    }
+  }}, [search]) */
 
-  return {movies: mapMovies, getMovies}
+  const sortedMovies = useMemo(()  =>{
+    return titulo
+      ?[...movies].sort((a,b) => a.title.localeCompare(b.title)) 
+      : movies
+  }, [titulo, movies])
+
+  return {movies: sortedMovies, getMovies, loading}
 }
