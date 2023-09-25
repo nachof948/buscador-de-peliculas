@@ -9,6 +9,8 @@ function App() {
 
   /* Ordenar las peliculas por año */
   const [titulo, setTitulo] = useState(false)
+  /* Ordenar las peliculas por año */
+  const [año, setAño] = useState(false)
   /* CUSTOM HOOK */
   const { error, setSearch, search } = useSearch()
   const { movies, loading, getMovies } = useMovies({ search, titulo })
@@ -44,14 +46,13 @@ function App() {
     setTitulo(!titulo)//Esto es para activarlo o desactivarlo
   }
 
-
   return (
     <div className='page'>
     <header>
       <h1>Buscador de peliculas</h1>
       <form className='form' onSubmit={manejarEnvio}>
         <input style={{border: '1px solid transparent', borderColor: error ? 'red' : 'transparent'}} value={search} onChange={manejarCambios} name="query" type="text" placeholder='Spiderman, Star Wars, Barbie...' />
-        <input type="checkbox" onChange={handleTitulo} checked={titulo} />
+        <div><span>A-Z:</span><input type="checkbox" onChange={handleTitulo} checked={titulo}/></div>
         <button type='submit'>Buscar</button>
       </form>
       {error && <p style={{color: 'red', fontWeight:500, textAlign:'center'}}>{error}</p>}

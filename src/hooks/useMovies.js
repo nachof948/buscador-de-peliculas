@@ -3,7 +3,7 @@ import { searchMovies } from '../services/movies'
 /* Custom Hook useMovies()*/
 //Se encarga de realizar todo el proceso de la busqueda de peliculas
 
-export function useMovies({ search, titulo }) {
+export function useMovies({ search, titulo}) {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   
@@ -46,11 +46,11 @@ export function useMovies({ search, titulo }) {
     }
   }}, [search]) */
 
-  const sortedMovies = useMemo(()  =>{
+  const sortedTitle = useMemo(()  =>{
     return titulo
       ?[...movies].sort((a,b) => a.title.localeCompare(b.title)) 
       : movies
   }, [titulo, movies])
-
-  return {movies: sortedMovies, getMovies, loading}
+  
+  return {movies: sortedTitle, getMovies, loading}
 }
